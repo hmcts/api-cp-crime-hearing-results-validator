@@ -232,6 +232,9 @@ components:
         orderIndex:
           type: integer
           description: Offence order index (count number) for display in validation messages
+        caseUrn:
+          type: string
+          description: Case URN (prosecution case reference) for identifying which case this offence belongs to
 
     DraftValidationResponse:
       type: object
