@@ -4,7 +4,7 @@ plugins {
   id 'jacoco'
   id 'maven-publish'
   id "com.github.ben-manes.versions" version "0.53.0"
-  id "org.cyclonedx.bom" version "3.2.0"
+  id "org.cyclonedx.bom" version "3.2.2"
   id 'pmd'
 }
 
@@ -22,7 +22,7 @@ apply {
 }
 
 ext {
-  springBootVersion = "4.0.3"
+  springBootVersion = "4.0.4"
   lombokVersion = "1.18.44"
 }
 
