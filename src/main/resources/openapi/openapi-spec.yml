@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ValidationRequestWithConvictions'
+              $ref: '#/components/schemas/DraftValidationRequest'
       responses:
         '200':
           description: Validation completed
@@ -123,35 +123,6 @@ components:
       description: Session-level correlation ID from UI
 
   schemas:
-    OffenceConviction:
-      type: object
-      required:
-        - offenceId
-        - convicted
-      properties:
-        offenceId:
-          type: string
-          format: uuid
-          description: Offence identifier (UUID)
-        convicted:
-          type: boolean
-          description: Whether the defendant was convicted of this offence
-
-    ValidationRequestWithConvictions:
-      type: object
-      required:
-        - validationRequest
-        - offenceConvictions
-      properties:
-        validationRequest:
-          $ref: '#/components/schemas/DraftValidationRequest'
-        offenceConvictions:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/OffenceConviction'
-          description: Set of offence conviction flags
-
     DraftValidationRequest:
       type: object
       required:
