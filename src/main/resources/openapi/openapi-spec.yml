@@ -193,6 +193,14 @@ components:
         consecutiveToOffence:
           type: string
           description: Offence identifier that this sentence is consecutive to
+        category:
+          type: string
+          enum: [A, I, F]
+          description: >-
+            Closed enum identifying the role of this result line on the offence:
+            A = Ancillary (e.g. adjournment, listing); I = Intermediary
+            (e.g. plea, hearing-internal); F = Final (the line that makes
+            the offence inactive).
 
     DefendantDto:
       type: object
