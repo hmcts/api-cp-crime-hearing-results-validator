@@ -316,6 +316,24 @@ components:
           items:
             $ref: '#/components/schemas/AffectedOffence'
           description: Affected offences
+        affectedDefendants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AffectedDefendant'
+          description: Affected defendants
+        validationLevel:
+          type: string
+          enum:
+            - OFFENCE
+            - DEFENDANT
+          description: Indicates whether this issue relates to an offence or a defendant, determining which of affectedOffences or affectedDefendants to use
+
+    AffectedDefendant:
+      type: object
+      properties:
+        defendantId:
+          type: string
+          description: Defendant identifier
 
     AffectedOffence:
       type: object
