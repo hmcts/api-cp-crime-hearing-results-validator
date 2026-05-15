@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.cp.openapi.api.RootApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationRulesApi;
+import uk.gov.hmcts.cp.openapi.model.AffectedDefendant;
 import uk.gov.hmcts.cp.openapi.model.AffectedOffence;
 import uk.gov.hmcts.cp.openapi.model.DefendantDto;
 import uk.gov.hmcts.cp.openapi.model.DraftValidationRequest;
@@ -69,7 +70,7 @@ class OpenApiObjectsTest {
     @Test
     void generated_validation_issue_should_have_expected_fields() {
         assertThat(ValidationIssue.class).hasDeclaredFields(
-                "ruleId", "severity", "message", "affectedResultCodes", "affectedOffences"
+                "ruleId", "severity", "message", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
         );
     }
 
@@ -107,5 +108,10 @@ class OpenApiObjectsTest {
     @Test
     void generated_affected_offence_should_have_expected_fields() {
         assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle");
+    }
+
+    @Test
+    void generated_affected_defendant_should_have_expected_fields() {
+        assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId");
     }
 }
