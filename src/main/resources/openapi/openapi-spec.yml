@@ -205,16 +205,19 @@ components:
           type: array
           description: Prompt responses associated with this result line.
           items:
-            type: object
-            required:
-              - promptRef
-            properties:
-              promptRef:
-                type: string
-                description: Reference identifier for the prompt
-              value:
-                type: string
-                description: Value provided for the prompt
+            $ref: '#/components/schemas/Prompt'
+
+    Prompt:
+      type: object
+      required:
+        - promptRef
+      properties:
+        promptRef:
+          type: string
+          description: Reference identifier for the prompt
+        promptValue:
+          type: string
+          description: Value provided for the prompt
 
     DefendantDto:
       type: object
