@@ -206,6 +206,8 @@ components:
           description: Prompt responses associated with this result line.
           items:
             type: object
+            required:
+              - promptRef
             properties:
               promptRef:
                 type: string

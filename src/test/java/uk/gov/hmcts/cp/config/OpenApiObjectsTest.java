@@ -13,6 +13,7 @@ import uk.gov.hmcts.cp.openapi.model.DraftValidationResponse;
 import uk.gov.hmcts.cp.openapi.model.ErrorResponse;
 import uk.gov.hmcts.cp.openapi.model.OffenceDto;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
+import uk.gov.hmcts.cp.openapi.model.ResultLineDtoPromptsInner;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
@@ -79,6 +80,14 @@ class OpenApiObjectsTest {
         assertThat(ResultLineDto.class).hasDeclaredFields(
                 "id", "shortCode", "label", "defendantId", "offenceId", "isConcurrent", "consecutiveToOffence"
         );
+    }
+
+    @Test
+    void generated_result_line_dto_prompts_inner_should_have_prompt_ref_as_required() throws Exception {
+        var getPromptRef = ResultLineDtoPromptsInner.class.getDeclaredMethod("getPromptRef");
+        assertThat(getPromptRef.getAnnotations())
+                .as("promptRef should carry @NotNull (i.e. be required)")
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("NotNull"));
     }
 
     @Test
