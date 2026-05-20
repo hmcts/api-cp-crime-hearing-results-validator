@@ -64,14 +64,14 @@ class OpenApiObjectsTest {
     @Test
     void generated_draft_validation_response_should_have_expected_fields() {
         assertThat(DraftValidationResponse.class).hasDeclaredFields(
-                "validationId", "timestamp", "mode", "rulesEvaluated", "isValid", "errors", "warnings", "processingTimeMs"
+                "validationId", "timestamp", "mode", "rulesEvaluated", "isValid", "errors", "warnings", "errorMessages", "processingTimeMs"
         );
     }
 
     @Test
     void generated_validation_issue_should_have_expected_fields() {
         assertThat(ValidationIssue.class).hasDeclaredFields(
-                "ruleId", "severity", "message", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
+                "ruleId", "severity", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
         );
     }
 
@@ -116,11 +116,11 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_affected_offence_should_have_expected_fields() {
-        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle");
+        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle", "message");
     }
 
     @Test
     void generated_affected_defendant_should_have_expected_fields() {
-        assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId");
+        assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId", "message");
     }
 }
