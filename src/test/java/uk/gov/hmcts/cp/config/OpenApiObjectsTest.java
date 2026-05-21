@@ -16,6 +16,7 @@ import uk.gov.hmcts.cp.openapi.model.Prompt;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
+import uk.gov.hmcts.cp.openapi.model.ValidationErrors;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
 
 import java.lang.reflect.Field;
@@ -64,8 +65,21 @@ class OpenApiObjectsTest {
     @Test
     void generated_draft_validation_response_should_have_expected_fields() {
         assertThat(DraftValidationResponse.class).hasDeclaredFields(
-                "validationId", "timestamp", "mode", "rulesEvaluated", "isValid", "errors", "warnings", "errorMessages", "processingTimeMs"
+                "validationId", "timestamp", "mode", "rulesEvaluated", "isValid", "errors", "warnings", "processingTimeMs"
         );
+    }
+
+    @Test
+    void generated_validation_errors_should_have_expected_fields() {
+        assertThat(ValidationErrors.class).hasDeclaredFields("errorMessages", "validationIssues");
+    }
+
+    @Test
+    void generated_validation_errors_error_messages_should_be_required() throws Exception {
+        var getErrorMessages = ValidationErrors.class.getDeclaredMethod("getErrorMessages");
+        assertThat(getErrorMessages.getAnnotations())
+                .as("errorMessages should carry @NotNull (i.e. be required)")
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("NotNull"));
     }
 
     @Test

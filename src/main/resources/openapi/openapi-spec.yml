@@ -297,21 +297,31 @@ components:
           type: boolean
           description: Whether validation passed (no errors)
         errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationIssue'
+          $ref: '#/components/schemas/ValidationErrors'
         warnings:
           type: array
           items:
             $ref: '#/components/schemas/ValidationIssue'
+        processingTimeMs:
+          type: integer
+          description: Processing time in milliseconds
+
+    ValidationErrors:
+      type: object
+      description: Container for validation errors, combining human-readable messages with structured validation issues
+      required:
+        - errorMessages
+      properties:
         errorMessages:
           type: array
           items:
             type: string
           description: Top-level human-readable summaries of the validation errors
-        processingTimeMs:
-          type: integer
-          description: Processing time in milliseconds
+        validationIssues:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationIssue'
+          description: Structured validation issues with rule details and affected entities
 
     ValidationIssue:
       type: object
