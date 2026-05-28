@@ -166,13 +166,13 @@ components:
     ResultLineDto:
       type: object
       required:
-        - id
+        - resultLineId
         - shortCode
         - label
         - defendantId
         - offenceId
       properties:
-        id:
+        resultLineId:
           type: string
           description: Result line identifier
         shortCode:
@@ -205,11 +205,11 @@ components:
     DefendantDto:
       type: object
       required:
-        - id
+        - defendantId
         - firstName
         - lastName
       properties:
-        id:
+        defendantId:
           type: string
           description: Defendant identifier
         firstName:
@@ -225,11 +225,11 @@ components:
     OffenceDto:
       type: object
       required:
-        - id
+        - offenceId
         - offenceCode
         - offenceTitle
       properties:
-        id:
+        offenceId:
           type: string
           description: Offence identifier
         offenceCode:
