@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.cp.openapi.api.RootApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationRulesApi;
+import uk.gov.hmcts.cp.openapi.model.AffectedDefendant;
 import uk.gov.hmcts.cp.openapi.model.AffectedOffence;
 import uk.gov.hmcts.cp.openapi.model.DefendantDto;
 import uk.gov.hmcts.cp.openapi.model.DraftValidationRequest;
@@ -15,6 +16,7 @@ import uk.gov.hmcts.cp.openapi.model.Prompt;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
+import uk.gov.hmcts.cp.openapi.model.ValidationErrors;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
 
 import java.lang.reflect.Field;
@@ -68,9 +70,22 @@ class OpenApiObjectsTest {
     }
 
     @Test
+    void generated_validation_errors_should_have_expected_fields() {
+        assertThat(ValidationErrors.class).hasDeclaredFields("errorMessages", "validationIssues");
+    }
+
+    @Test
+    void generated_validation_errors_error_messages_should_be_required() throws Exception {
+        var getErrorMessages = ValidationErrors.class.getDeclaredMethod("getErrorMessages");
+        assertThat(getErrorMessages.getAnnotations())
+                .as("errorMessages should carry @NotNull (i.e. be required)")
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("NotNull"));
+    }
+
+    @Test
     void generated_validation_issue_should_have_expected_fields() {
         assertThat(ValidationIssue.class).hasDeclaredFields(
-                "ruleId", "severity", "message", "affectedResultCodes", "affectedOffences"
+                "ruleId", "severity", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
         );
     }
 
@@ -115,6 +130,11 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_affected_offence_should_have_expected_fields() {
-        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle");
+        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle", "message");
+    }
+
+    @Test
+    void generated_affected_defendant_should_have_expected_fields() {
+        assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId", "message");
     }
 }
