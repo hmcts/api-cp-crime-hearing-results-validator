@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.cp.openapi.api.RootApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationApi;
 import uk.gov.hmcts.cp.openapi.api.ValidationRulesApi;
+import uk.gov.hmcts.cp.openapi.model.AffectedDefendant;
 import uk.gov.hmcts.cp.openapi.model.AffectedOffence;
 import uk.gov.hmcts.cp.openapi.model.DefendantDto;
 import uk.gov.hmcts.cp.openapi.model.DraftValidationRequest;
@@ -14,6 +15,7 @@ import uk.gov.hmcts.cp.openapi.model.OffenceDto;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
+import uk.gov.hmcts.cp.openapi.model.ValidationErrors;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
 
 import java.lang.reflect.Field;
@@ -69,26 +71,26 @@ class OpenApiObjectsTest {
     @Test
     void generated_validation_issue_should_have_expected_fields() {
         assertThat(ValidationIssue.class).hasDeclaredFields(
-                "ruleId", "severity", "message", "affectedResultCodes", "affectedOffences"
+                "ruleId", "severity", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
         );
     }
 
     @Test
     void generated_result_line_dto_should_have_expected_fields() {
         assertThat(ResultLineDto.class).hasDeclaredFields(
-                "id", "shortCode", "label", "defendantId", "offenceId", "isConcurrent", "consecutiveToOffence"
+                "resultLineId", "shortCode", "label", "defendantId", "offenceId", "isConcurrent", "consecutiveToOffence", "category"
         );
     }
 
     @Test
     void generated_defendant_dto_should_have_expected_fields() {
-        assertThat(DefendantDto.class).hasDeclaredFields("id", "firstName", "lastName");
+        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName");
     }
 
     @Test
     void generated_offence_dto_should_have_expected_fields() {
         assertThat(OffenceDto.class).hasDeclaredFields(
-                "id", "offenceCode", "offenceTitle", "hasActiveElectronicMonitoring", "orderIndex"
+                "offenceId", "offenceCode", "offenceTitle", "hasActiveElectronicMonitoring", "orderIndex", "caseUrn"
         );
     }
 
@@ -106,6 +108,16 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_affected_offence_should_have_expected_fields() {
-        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle");
+        assertThat(AffectedOffence.class).hasDeclaredFields("offenceId", "offenceTitle", "message");
+    }
+
+    @Test
+    void generated_affected_defendant_should_have_expected_fields() {
+        assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId", "message");
+    }
+
+    @Test
+    void generated_validation_errors_should_have_expected_fields() {
+        assertThat(ValidationErrors.class).hasDeclaredFields("errorMessages", "validationIssues");
     }
 }
