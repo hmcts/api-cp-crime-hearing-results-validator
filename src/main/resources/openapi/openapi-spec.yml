@@ -163,6 +163,22 @@ components:
           items:
             $ref: '#/components/schemas/OffenceDto'
 
+    Prompt:
+      type: object
+      required:
+        - promptRef
+        - promptValue
+      properties:
+        promptRef:
+          type: string
+          description: >-
+            Identifies the data field this prompt captures (e.g. endDate,
+            endDateOfTagging).
+        promptValue:
+          type: string
+          description: >-
+            The raw string value entered for this prompt.
+
     ResultLineDto:
       type: object
       required:
@@ -201,6 +217,12 @@ components:
             A = Ancillary (e.g. adjournment, listing); I = Intermediary
             (e.g. plea, hearing-internal); F = Final (the line that makes
             the offence inactive).
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+          description: >-
+            Structured data fields captured alongside the result line.
 
     DefendantDto:
       type: object
