@@ -173,7 +173,7 @@ components:
           type: string
           description: >-
             Identifies the data field this prompt captures (e.g. endDate,
-            endDateOfTagging). Matched by preprocessors to extract typed values.
+            endDateOfTagging).
         promptValue:
           type: string
           description: >-
@@ -222,9 +222,7 @@ components:
           items:
             $ref: '#/components/schemas/Prompt'
           description: >-
-            Structured data fields captured alongside the result line (e.g.
-            endDate, endDateOfTagging). Used by the YRO preprocessor to extract
-            dates for validation.
+            Structured data fields captured alongside the result line.
 
     DefendantDto:
       type: object
