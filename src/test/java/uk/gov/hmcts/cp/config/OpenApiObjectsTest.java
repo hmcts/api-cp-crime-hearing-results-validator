@@ -15,6 +15,7 @@ import uk.gov.hmcts.cp.openapi.model.OffenceDto;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
+import uk.gov.hmcts.cp.openapi.model.Prompt;
 import uk.gov.hmcts.cp.openapi.model.ValidationErrors;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
 
@@ -76,9 +77,14 @@ class OpenApiObjectsTest {
     }
 
     @Test
+    void generated_prompt_should_have_expected_fields() {
+        assertThat(Prompt.class).hasDeclaredFields("promptRef", "promptValue");
+    }
+
+    @Test
     void generated_result_line_dto_should_have_expected_fields() {
         assertThat(ResultLineDto.class).hasDeclaredFields(
-                "resultLineId", "shortCode", "label", "defendantId", "offenceId", "isConcurrent", "consecutiveToOffence", "category"
+                "resultLineId", "shortCode", "label", "defendantId", "offenceId", "isConcurrent", "consecutiveToOffence", "category", "prompts"
         );
     }
 

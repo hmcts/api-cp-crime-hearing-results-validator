@@ -177,8 +177,7 @@ components:
         promptValue:
           type: string
           description: >-
-            The raw string value entered for this prompt (e.g. an ISO-8601
-            date such as 2025-03-15).
+            The raw string value entered for this prompt.
 
     ResultLineDto:
       type: object
