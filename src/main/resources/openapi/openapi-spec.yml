@@ -103,6 +103,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: updateValidationRule
+      tags:
+        - validation-rules
+      summary: Enable or disable a validation rule
+      description: Updates the enabled status and/or severity of a validation rule identified by its ID
+      parameters:
+        - in: path
+          name: ruleId
+          required: true
+          schema:
+            type: string
+          description: Rule identifier (e.g. DR-SENT-001)
+        - $ref: '#/components/parameters/CjscppuidHeader'
+        - $ref: '#/components/parameters/CppclientcorrelationidHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRuleRequest'
+      responses:
+        '200':
+          description: Rule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleDetailResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Rule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   parameters:
@@ -387,6 +427,9 @@ components:
 
     RuleDetailResponse:
       type: object
+      required:
+        - ruleId
+        - enabled
       properties:
         ruleId:
           type: string
@@ -409,6 +452,22 @@ components:
         enabled:
           type: boolean
           description: Whether rule is currently active
+
+    UpdateRuleRequest:
+      type: object
+      description: >
+        At least one field must be provided. Only supplied fields are updated;
+        omitted fields are left unchanged.
+      properties:
+        enabled:
+          type: boolean
+          description: Whether the rule should be active
+        severity:
+          type: string
+          enum:
+            - ERROR
+            - WARNING
+          description: Override the default severity of the rule
 
     ErrorResponse:
       type: object
