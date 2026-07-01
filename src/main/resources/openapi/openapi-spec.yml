@@ -477,7 +477,12 @@ components:
           enum:
             - ERROR
             - WARNING
-          description: Override the default severity of the rule
+          description: >
+            Severity ceiling for the rule. Caps the rule's condition severities
+            downward (e.g. an ERROR condition is reduced to WARNING) but never
+            promotes them above their configured severity. Setting WARNING stops
+            the rule from blocking shares; setting ERROR leaves each condition at
+            its configured severity.
 
     ErrorResponse:
       type: object
