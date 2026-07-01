@@ -15,6 +15,7 @@ import uk.gov.hmcts.cp.openapi.model.OffenceDto;
 import uk.gov.hmcts.cp.openapi.model.ResultLineDto;
 import uk.gov.hmcts.cp.openapi.model.RuleDetailResponse;
 import uk.gov.hmcts.cp.openapi.model.RuleListResponse;
+import uk.gov.hmcts.cp.openapi.model.UpdateRuleRequest;
 import uk.gov.hmcts.cp.openapi.model.ValidationErrors;
 import uk.gov.hmcts.cp.openapi.model.ValidationIssue;
 
@@ -51,7 +52,12 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_validation_rules_api_should_have_expected_methods() {
-        assertThat(ValidationRulesApi.class).hasDeclaredMethods("listValidationRules", "getValidationRuleById");
+        assertThat(ValidationRulesApi.class).hasDeclaredMethods("listValidationRules", "getValidationRuleById", "updateValidationRule");
+    }
+
+    @Test
+    void generated_update_rule_request_should_have_expected_fields() {
+        assertThat(UpdateRuleRequest.class).hasDeclaredFields("enabled", "severity");
     }
 
     @Test
