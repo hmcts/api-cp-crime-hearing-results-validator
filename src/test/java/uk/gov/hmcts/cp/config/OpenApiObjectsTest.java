@@ -84,7 +84,15 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_defendant_dto_should_have_expected_fields() {
-        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName");
+        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName", "dateOfBirth");
+    }
+
+    @Test
+    void generated_defendant_dto_date_of_birth_should_be_local_date() throws Exception {
+        Field dateOfBirthField = DefendantDto.class.getDeclaredField("dateOfBirth");
+        assertThat(dateOfBirthField.getType())
+                .as("dateOfBirth field type")
+                .isEqualTo(java.time.LocalDate.class);
     }
 
     @Test
