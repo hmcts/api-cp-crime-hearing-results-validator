@@ -15,6 +15,6 @@ permissions:
 
 jobs:
   docs:
-    uses: hmcts/amp-catalog/.github/workflows/publish-swagger-ui.yml@v1
+    uses: hmcts/amp-catalog/.github/workflows/publish-swagger-ui.yml@59f118e6c95b9385fefd6de0bf244ec3190959cb # v1
     with:
       openapi_path: src/main/resources/openapi/openapi-spec.yml
