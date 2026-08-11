@@ -10,3 +10,5 @@
 ### Added
 - `AffectedDefendant` added to `ValidationIssue` alongside the existing `AffectedOffence`, supporting defendant-level validation issues
 - `validationLevel` on `ValidationIssue` scopes each issue to either `OFFENCE` or `DEFENDANT`; only the corresponding `affectedOffences` or `affectedDefendants` list is populated
+- Optional `dateOfBirth` field added to `DefendantDto`, to be populated once callers are updated to provide it
+- `Prompt` schema added, and `ResultLineDto.prompts` now carries structured data fields (e.g. `endDate`, `endDateOfTagging`) captured alongside a result line
