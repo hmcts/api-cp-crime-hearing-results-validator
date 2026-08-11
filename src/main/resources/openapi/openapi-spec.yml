@@ -283,6 +283,12 @@ components:
         masterDefendantId:
           type: string
           description: Master defendant identifier for linked cases (same person across cases)
+        dateOfBirth:
+          type: string
+          format: date
+          description: >-
+            Defendant's date of birth. Optional during the transition period while
+            callers are updated to populate it.
 
     OffenceDto:
       type: object
