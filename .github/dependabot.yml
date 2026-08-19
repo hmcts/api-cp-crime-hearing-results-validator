@@ -22,3 +22,10 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 14
+    # Group all action bumps into one PR: lockstep actions such as
+    # codeql-action/init and codeql-action/analyze must be bumped together,
+    # as split PRs leave mismatched versions that can never pass CI
+    groups:
+      all-actions:
+        patterns:
+          - "*"
