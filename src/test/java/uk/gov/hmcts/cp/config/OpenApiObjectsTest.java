@@ -76,6 +76,19 @@ class OpenApiObjectsTest {
     }
 
     @Test
+    void generated_validation_errors_should_have_expected_fields() {
+        assertThat(ValidationErrors.class).hasDeclaredFields("errorMessages", "validationIssues");
+    }
+
+    @Test
+    void generated_validation_errors_error_messages_should_be_required() throws Exception {
+        var getErrorMessages = ValidationErrors.class.getDeclaredMethod("getErrorMessages");
+        assertThat(getErrorMessages.getAnnotations())
+                .as("errorMessages should carry @NotNull (i.e. be required)")
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("NotNull"));
+    }
+
+    @Test
     void generated_validation_issue_should_have_expected_fields() {
         assertThat(ValidationIssue.class).hasDeclaredFields(
                 "ruleId", "severity", "affectedResultCodes", "affectedOffences", "affectedDefendants", "validationLevel"
@@ -95,15 +108,38 @@ class OpenApiObjectsTest {
     }
 
     @Test
+    void generated_prompts_should_have_prompt_ref_as_required() throws Exception {
+        var getPromptRef = Prompt.class.getDeclaredMethod("getPromptRef");
+        assertThat(getPromptRef.getAnnotations())
+                .as("promptRef should carry @NotNull (i.e. be required)")
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("NotNull"));
+    }
+
+    @Test
     void generated_defendant_dto_should_have_expected_fields() {
-        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName");
+        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName", "dateOfBirth");
+    }
+
+    @Test
+    void generated_defendant_dto_date_of_birth_should_be_local_date() throws Exception {
+        Field dateOfBirthField = DefendantDto.class.getDeclaredField("dateOfBirth");
+        assertThat(dateOfBirthField.getType())
+                .as("dateOfBirth field type")
+                .isEqualTo(java.time.LocalDate.class);
     }
 
     @Test
     void generated_offence_dto_should_have_expected_fields() {
         assertThat(OffenceDto.class).hasDeclaredFields(
-                "offenceId", "offenceCode", "offenceTitle", "hasActiveElectronicMonitoring", "orderIndex", "caseUrn"
+                "offenceId", "offenceCode", "offenceTitle", "hasActiveElectronicMonitoring", "orderIndex", "caseUrn",
+                "hasExistingCtlRecord", "isConvicted"
         );
+    }
+
+    @Test
+    void generated_offence_dto_ctl_fields_should_be_boolean() throws Exception {
+        assertThat(OffenceDto.class.getDeclaredField("hasExistingCtlRecord").getType()).isEqualTo(Boolean.class);
+        assertThat(OffenceDto.class.getDeclaredField("isConvicted").getType()).isEqualTo(Boolean.class);
     }
 
     @Test
@@ -126,10 +162,5 @@ class OpenApiObjectsTest {
     @Test
     void generated_affected_defendant_should_have_expected_fields() {
         assertThat(AffectedDefendant.class).hasDeclaredFields("defendantId", "message");
-    }
-
-    @Test
-    void generated_validation_errors_should_have_expected_fields() {
-        assertThat(ValidationErrors.class).hasDeclaredFields("errorMessages", "validationIssues");
     }
 }
