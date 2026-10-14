@@ -294,6 +294,7 @@ components:
       type: object
       required:
         - offenceId
+        - defendantId
         - offenceCode
         - offenceTitle
       properties:
@@ -325,6 +326,29 @@ components:
           description: >-
             True if this offence is convicted (guilty plea, finding of guilt, or a recorded date
             of conviction). When true the CTL missing check (DR-CTL-001) is suppressed.
+        bailStatus:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - D
+            - F
+            - I
+            - L
+            - P
+            - R
+            - S
+            - U
+            - V
+          description: Bail status of the defendant
+        defendantId:
+          type: string
+          minLength: 1
+          pattern: '\S+'
+          description: >-
+            Required owning defendant identifier.
+            Must be supplied for every offence, including offences without result lines.
 
     DraftValidationResponse:
       type: object
