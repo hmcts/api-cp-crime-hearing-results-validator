@@ -37,6 +37,7 @@ dependencies {
 
   constraints {
     // CVE-2026-110879: CRITICAL deserialization bypass — floor at 3.1.8
+    // Remove once Spring Boot manages jackson-databind >= 3.1.8
     implementation('tools.jackson.core:jackson-databind:3.1.8') {
       because 'CVE-2026-110879'
     }
