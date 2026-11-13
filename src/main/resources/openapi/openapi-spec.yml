@@ -326,6 +326,9 @@ components:
           description: >-
             True if this offence is convicted (guilty plea, finding of guilt, or a recorded date
             of conviction). When true the CTL missing check (DR-CTL-001) is suppressed.
+        isCivil:
+          type: boolean
+          description: True if this is a civil offence
         bailStatus:
           type: string
           enum:
