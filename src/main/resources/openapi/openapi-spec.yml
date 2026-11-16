@@ -289,6 +289,25 @@ components:
           description: >-
             Defendant's date of birth. Optional during the transition period while
             callers are updated to populate it.
+        remandStatus:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - D
+            - F
+            - I
+            - L
+            - P
+            - R
+            - S
+            - U
+            - V
+          description: >-
+            Defendant-level remand status. Used as a fallback when offence-level bailStatus
+            is absent (older offences not yet backfilled). C = in custody, L = care of
+            local authority, S = youth detention accommodation.
 
     OffenceDto:
       type: object

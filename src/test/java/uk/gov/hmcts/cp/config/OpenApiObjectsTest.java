@@ -117,7 +117,19 @@ class OpenApiObjectsTest {
 
     @Test
     void generated_defendant_dto_should_have_expected_fields() {
-        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName", "dateOfBirth");
+        assertThat(DefendantDto.class).hasDeclaredFields("defendantId", "firstName", "lastName", "dateOfBirth", "remandStatus");
+    }
+
+    @Test
+    void generated_defendant_dto_remand_status_enum_should_have_expected_count() {
+        assertThat(DefendantDto.RemandStatusEnum.values()).hasSize(12);
+    }
+
+    @Test
+    void generated_defendant_dto_remand_status_enum_should_contain_all_expected_values() {
+        assertThat(DefendantDto.RemandStatusEnum.values())
+                .extracting(DefendantDto.RemandStatusEnum::getValue)
+                .containsExactlyInAnyOrder("A", "B", "C", "D", "F", "I", "L", "P", "R", "S", "U", "V");
     }
 
     @Test
