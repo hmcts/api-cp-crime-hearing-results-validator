@@ -4,6 +4,7 @@
 
 ### Added
 - Optional `dateOfBirth` field added to `DefendantDto`, to be populated once callers are updated to provide it
+- Optional `isCivil` boolean field added to `OffenceDto`, indicating whether the offence is a civil offence
 
 ## [Released]
 

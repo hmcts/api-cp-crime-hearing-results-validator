@@ -132,8 +132,13 @@ class OpenApiObjectsTest {
     void generated_offence_dto_should_have_expected_fields() {
         assertThat(OffenceDto.class).hasDeclaredFields(
                 "offenceId", "offenceCode", "offenceTitle", "hasActiveElectronicMonitoring", "orderIndex", "caseUrn",
-                "hasExistingCtlRecord", "isConvicted", "bailStatus"
+                "hasExistingCtlRecord", "isConvicted", "isCivil", "bailStatus"
         );
+    }
+
+    @Test
+    void generated_offence_dto_is_civil_should_be_boolean() throws Exception {
+        assertThat(OffenceDto.class.getDeclaredField("isCivil").getType()).isEqualTo(Boolean.class);
     }
 
     @Test
